@@ -13,6 +13,8 @@ import {
 } from './lib/strategy'
 import './index.css'
 
+const isEmbed = new URLSearchParams(window.location.search).get('embed') === '1'
+
 export default function App() {
   // Race info
   const [trackName, setTrackName] = useState('Daytona International Speedway')
@@ -140,32 +142,34 @@ export default function App() {
 
   return (
     <div className="dark min-h-screen bg-gray-950 text-gray-100 flex flex-col">
-      {/* Header */}
-      <header className="bg-gray-900 border-b border-gray-800 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white font-bold text-sm select-none">
-              iR
+      {/* Header — hidden in embed mode */}
+      {!isEmbed && (
+        <header className="bg-gray-900 border-b border-gray-800 px-6 py-4">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white font-bold text-sm select-none">
+                iR
+              </div>
+              <div>
+                <h1 className="text-lg font-bold text-white leading-none tracking-tight">
+                  iRacing Endurance Strategy Builder
+                </h1>
+                <p className="text-xs text-gray-500 mt-0.5">Fuel-driven pit strategy planner</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-lg font-bold text-white leading-none tracking-tight">
-                iRacing Endurance Strategy Builder
-              </h1>
-              <p className="text-xs text-gray-500 mt-0.5">Fuel-driven pit strategy planner</p>
+            <div className="flex items-center gap-2">
+              {generating && (
+                <span className="text-xs text-orange-400 animate-pulse">Calculating...</span>
+              )}
+              <div className="text-xs text-gray-500 font-mono bg-gray-800 px-2 py-1 rounded">
+                {raceLaps > 0 ? `~${raceLaps} laps` : '--'} · {raceDurationHours}h
+              </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {generating && (
-              <span className="text-xs text-orange-400 animate-pulse">Calculating...</span>
-            )}
-            <div className="text-xs text-gray-500 font-mono bg-gray-800 px-2 py-1 rounded">
-              {raceLaps > 0 ? `~${raceLaps} laps` : '--'} · {raceDurationHours}h
-            </div>
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
 
-      <div className="flex-1 max-w-7xl mx-auto w-full px-4 py-6 flex gap-6">
+      <div className={`flex-1 ${isEmbed ? '' : 'max-w-7xl mx-auto'} w-full px-4 py-6 flex gap-6`}>
         {/* Sidebar */}
         <aside className="w-72 flex-shrink-0 space-y-4">
 
