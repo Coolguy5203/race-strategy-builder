@@ -84,9 +84,6 @@ export default function StrategyCanvas({ strategies, raceLaps, activeStrategies 
               const maxFuel = strategy.stints[0]?.fuelAtStart || 1
               const startFrac = Math.min(1, stint.fuelAtStart / maxFuel)
               const endFrac = Math.min(1, stint.fuelAtEnd / maxFuel)
-              // interpolate color: green (full) → red (empty)
-              const r = Math.round(255 * (1 - startFrac) + 34 * startFrac)
-              const g = Math.round(197 * startFrac + 34 * (1 - startFrac))
               return (
                 <div
                   key={idx}

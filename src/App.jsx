@@ -49,7 +49,7 @@ export default function App() {
   const raceLaps = calcTotalLaps(raceDurationHours, avgLapTimeSec)
   const maxDriverStintLaps = Math.ceil((maxDriverStintMinutes * 60) / avgLapTimeSec)
   const baseInterval = Math.min(fuelTankLaps, tire.maxLife, maxDriverStintLaps)
-  const pitIntervalLaps = Math.max(5, Math.min(baseInterval, baseInterval + pitIntervalOffset))
+  const pitIntervalLaps = Math.max(5, baseInterval + pitIntervalOffset)
 
   function handleGenerate() {
     if (raceLaps < 5) return

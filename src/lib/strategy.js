@@ -208,7 +208,7 @@ export function findUndercutWindows(stints, tire, fixedServiceTime, refuelTimePe
     if (!nextStint) continue
 
     const freshFirstLap = tire.baseline + tire.degradation + fuelTankLaps * fuelEffect
-    const pitLoss = calcPitLoss(fixedServiceTime, refuelTimePerLap, nextStint.pitService?.fuelAdded || fuelTankLaps)
+    const pitLoss = calcPitLoss(fixedServiceTime, refuelTimePerLap, stint.pitService?.fuelAdded || fuelTankLaps)
     const timeSaving = currentLapTime + nextLapTime - freshFirstLap - pitLoss
 
     if (timeSaving > 0) {
